@@ -2,3 +2,4 @@
 .atom
 .packages
 bin/
+pubspec.lock

@@ -11,8 +11,6 @@
   width: 7%; }
 
 .cell {
-  width: 20px;
-  height: 20px;
   margin: 1px;
   background-color: purple; }
 
@@ -29,9 +27,7 @@
   clear: both; }
 
 [class*='col-'] {
-  float: left;
-  width: 20px;
-  margin: 1px; }
+  float: left; }
   [class*='col-'] :last-of-type {
     padding-right: 0; }
 

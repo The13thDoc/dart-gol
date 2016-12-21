@@ -33,6 +33,8 @@
         <div *ngFor="let cell of column" class="cell"
         id="{{cell[0]['id']}}"
         [ngClass]="{alive: cell[0]['state']}"
+        [ngStyle]="{'width': cellDimensionPx,
+        'height': cellDimensionPx}"
         (click)="cell[0]['state'] = toggleState(cell[0]['state'])">
 
         </div>

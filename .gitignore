@@ -1,0 +1,4 @@
+.pub/
+.atom
+.packages
+bin/

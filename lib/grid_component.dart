@@ -14,13 +14,12 @@ class GridComponent {
 
   List<List> rowsList;
 
-  // @HostBinding('[class.alive]')
-  // bool alive;
-
-  @HostBinding('[class.cellWidth]')
+  @HostBinding('[class.cell]')
   String cellDimension = "20";
+  String cellDimensionPx;
 
   GridComponent() {
+    cellDimensionPx = "${cellDimension}px";;
     generateList();
   }
 
@@ -76,5 +75,7 @@ class GridComponent {
     generateList();
   }
 
-  void updateCellSize() {}
+  void updateCellSize() {
+    cellDimensionPx = "${cellDimension}px";
+  }
 }

@@ -1,0 +1,38 @@
+.header:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+[class*='head-'] {
+  float: left;
+  width: 20%; }
+
+.head-1 {
+  width: 7%; }
+
+.cell {
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+  background-color: purple; }
+
+.alive {
+  background-color: darkorange;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+
+.grid:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+[class*='col-'] {
+  float: left;
+  width: 20px;
+  margin: 1px; }
+  [class*='col-'] :last-of-type {
+    padding-right: 0; }
+
+/*# sourceMappingURL=grid_component.css.map */

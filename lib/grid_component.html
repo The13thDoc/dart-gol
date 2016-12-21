@@ -1,0 +1,40 @@
+<h3 class="header">
+    <div class="head-1">
+        <label>Size:</label>
+        <div>{{gridDimension}}x{{gridDimension}}</div>
+        <div>{{cellDimension}}</div>
+    </div>
+
+    <div class="head-2">
+        <br>
+        <input class="grid-size" [(ngModel)]="gridDimension" type="range"
+        min="5" max="50" step="1" (change)="updateGridSize()" >
+        <input class="cell-size" [(ngModel)]="cellDimension" type="range"
+        min="5" max="50" step="1" (change)="updateCellSize()">
+    </div>
+
+    <div class="head-3">
+        <label>Cycles:</label>
+        <div>N/A</div>
+    </div>
+
+    <div class="head-4">
+        <label>Length of cycle:</label>
+        <div>N/A</div>
+    </div>
+
+    <div class="head-5">
+        <label>Current cycle:</label>
+        <div>N/A</div>
+    </div>
+</h3>
+<div class="grid">
+    <div *ngFor="let column of rowsList" class="col-">
+        <div *ngFor="let cell of column" class="cell"
+        id="{{cell[0]['id']}}"
+        [ngClass]="{alive: cell[0]['state']}"
+        (click)="cell[0]['state'] = toggleState(cell[0]['state'])">
+
+        </div>
+    </div>
+</div>

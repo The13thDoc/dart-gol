@@ -1,0 +1,59 @@
+$square: 20px;
+$cell-width: $square;
+$cell-height: $square;
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+[class*='head-'] {
+    float: left;
+    width: 20%;
+}
+
+.head-1 {
+    width: 7%;
+}
+
+.cell {
+    width: $cell-width;
+    height: $cell-height;
+    margin: 1px;
+    background-color: purple;
+
+
+}
+
+.alive {
+    background-color: darkorange;
+    @include border-radius(10px);
+}
+
+.grid:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+[class*='col-'] {
+    float: left;
+    width: 20px;
+    margin: 1px;
+
+    :last-of-type {
+      padding-right: 0;
+    }
+}
+
+.grid-size .cell-size {
+
+}

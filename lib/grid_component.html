@@ -25,7 +25,8 @@
 
     <div class="head-5">
         <label>Generation:</label>
-        <div>{{generationsPast}}</div>
+        <div>{{generationsPast}}</div><label>(Living cells): {{livingCells}}</label>
+        <button (click)="buttonRun(); $event.stopPropagation()">Step forward</button>
     </div>
 </h3>
 <div class="grid">
@@ -35,10 +36,10 @@
         [ngClass]="{alive: cell.alive}"
         [ngStyle]="{'width': cellDimensionPx,
         'height': cellDimensionPx}"
-        (click)="cell.alive = toggleState(cell.alive); $event.stopPropagation()">
+        (click)="cell.alive = toggleState(cell.alive, cell.id); $event.stopPropagation()">
 
         </div>
     </div>
 </div>
-<button (click)="buttonRun(); $event.stopPropagation()">Step forward</button>
+
 <!-- <button (click)="buttonStop()">Stop</button> -->

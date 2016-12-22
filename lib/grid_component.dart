@@ -19,9 +19,11 @@ class GridComponent {
   int secondsPerGeneration = 0;
   bool go = false;
 
-  List<List> columnsList;
+  List columnsList;
+  Map<String, Cell> lookupCells = {};
   String cellDimension = "20";
   String cellDimensionPx;
+  int livingCells = 0;
 
   GridComponent() {
     cellDimensionPx = "${cellDimension}px";
@@ -29,21 +31,36 @@ class GridComponent {
   }
 
   Future<Null> generateList() async {
-    // List<List> initGlider = [
-    //   [0, 1, 0],
-    //   [0, 0, 1],
-    //   [1, 1, 1]
-    // ];
+    List<List> initGlider = [
+      [0, 1, 0],
+      [0, 0, 1],
+      [1, 1, 1]
+    ];
+    List<List> initBlock = [
+      [0, 0, 0, 0, 0],
+      [0, 0, 1, 1, 0],
+      [0, 0, 1, 1, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+    ];
+    List<List> initBlinker = [
+      [0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0],
+      [0, 0, 1, 0, 0],
+      [0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0],
+    ];
     // top to bottom
     // left to right
     columnsList = [];
-    int square = int.parse(gridDimension);
-    for (int c = 0; c < square; c++) {
+    for (int c = 0; c < int.parse(gridDimension); c++) {
       List<Cell> cellsList = [];
-      for (int r = 0; r < square; r++) {
+      for (int r = 0; r < int.parse(gridDimension); r++) {
         // incrememt r and c by 1, for base 1 instead of 0.
-        String id = "${r+1}x${c+1}";
-        cellsList.add(getDead(id));
+        String id = "${r + 1}x${c + 1}";
+        Cell cell = getDead(id);
+        cellsList.add(cell);
+        lookupCells.addAll({id: cell});
       }
       columnsList.add(cellsList);
     }
@@ -57,28 +74,28 @@ class GridComponent {
     return new Cell(id, false);
   }
 
-  Future<Null> loop() async {
-    // while (generationsPast <= generationsToRun && go) {
-    run();
-    // new Future.delayed(const Duration(seconds: 1), run);
-    // }
+  void stepForward() {
+    verifyNeighbors();
+    grow();
   }
 
-  void run() {
+  /// Check surroundings for living neighbors.
+  void verifyNeighbors() {
     for (List col in columnsList) {
       for (Cell cell in col) {
         findNeighbors(cell);
         cell.check();
       }
     }
-    grow();
   }
 
   /// Iterate throw the grid, advancing each cell's state.
   void grow() {
     for (List col in columnsList) {
       for (Cell cell in col) {
-        cell.grow();
+        if (cell.alive != cell.nextState) {
+          updateLiveCount(cell.grow());
+        }
       }
     }
     generationsPast++;
@@ -86,40 +103,38 @@ class GridComponent {
 
   void findNeighbors(Cell cell) {
     // Remember, indexes are set at base 1. Bring them back to base zero.
-    int r = cell.r - 1, c = cell.c - 1;
+    // int r = cell.r - 1, c = cell.c - 1;
+    int r = cell.r, c = cell.c;
     Map rotation = {
-      0: {'r': r, 'c': c + 1},
-      0.25: {'r': r - 1, 'c': c + 1},
-      0.5: {'r': r - 1, 'c': c},
-      0.75: {'r': r - 1, 'c': c - 1},
-      1: {'r': r, 'c': c - 1},
-      1.25: {'r': r + 1, 'c': c - 1},
-      1.5: {'r': r + 1, 'c': c},
-      1.75: {'r': r + 1, 'c': c + 1},
+      0: {"r": r, "c": c + 1},
+      0.25: {"r": r - 1, "c": c + 1},
+      0.5: {"r": r - 1, "c": c},
+      0.75: {"r": r - 1, "c": c - 1},
+      1: {"r": r, "c": c - 1},
+      1.25: {"r": r + 1, "c": c - 1},
+      1.5: {"r": r + 1, "c": c},
+      1.75: {"r": r + 1, "c": c + 1},
     };
-    num rotate = 0;
-    while (rotate <= 1.75) {
+    num angle = 0;
+    cell.neighbors.clear(); // IMPORTANT!
+    while (angle <= 1.75) {
       Cell neighbor;
-      int row = rotation[rotate]['r'];
-      int col = rotation[rotate]['c'];
+      int row = rotation[angle]["r"];
+      int col = rotation[angle]["c"];
 
-      if (row >= 0 && col >= 0) {
-        try {
-          neighbor = columnsList[col][row];
-        } catch (RangeError) {}
-        if (neighbor != null) {
-          if (neighbor.alive) {
-            cell.neighbors.add(neighbor);
-          }
+      if (lookupCells.containsKey("${row}x${col}")) {
+        neighbor = lookupCells["${row}x${col}"];
+        if (neighbor.alive) {
+          cell.neighbors.add(neighbor);
         }
       }
-      rotate += 0.25;
+      angle += 0.25;
     }
   }
 
   void buttonRun() {
     go = true;
-    run();
+    stepForward();
   }
 
   void buttonStop() {
@@ -127,7 +142,9 @@ class GridComponent {
   }
 
   /// Toggle the state (true/false) of the given cell.
-  bool toggleState(bool state) {
+  bool toggleState(bool state, String id) {
+    lookupCells[id].alive = !state;
+    updateLiveCount(!state);
     return !state;
   }
 
@@ -137,5 +154,13 @@ class GridComponent {
 
   void updateCellSize() {
     cellDimensionPx = "${cellDimension}px";
+  }
+
+  void updateLiveCount(bool state) {
+    if (state) {
+      livingCells++;
+    } else {
+      livingCells--;
+    }
   }
 }

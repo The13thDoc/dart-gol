@@ -28,13 +28,11 @@ class Cell {
   // Check for living neighbors.
   void check() {
     nextState = getNextState();
-    if (nextState) {
-      print("${id}(${alive}): ${neighbors.length}, Will be: ${nextState}");
-    }
   }
 
   /// Advance to the next state.
-  void grow() {
+  bool grow() {
     alive = nextState;
+    return alive;
   }
 }

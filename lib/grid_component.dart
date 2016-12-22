@@ -12,16 +12,16 @@ import 'cell.dart';
 )
 class GridComponent {
   @Input()
-  String gridDimension = "10";
+  String gridDimension = "50";
 
   int generationsPast = 1;
-  int generationsToRun = 0;
-  int secondsPerGeneration = 0;
+  String generationsToRun = "50";
+  String secondsPerGeneration = ".5";
   bool go = false;
 
   List columnsList;
   Map<String, Cell> lookupCells = {};
-  String cellDimension = "20";
+  String cellDimension = "10";
   String cellDimensionPx;
   int livingCells = 0;
 
@@ -31,6 +31,8 @@ class GridComponent {
   }
 
   Future<Null> generateList() async {
+    // This reset all cells to dead currently
+    livingCells = 0;
     List<List> initGlider = [
       [0, 1, 0],
       [0, 0, 1],
@@ -76,7 +78,7 @@ class GridComponent {
 
   void stepForward() {
     verifyNeighbors();
-    grow();
+    if (go) grow();
   }
 
   /// Check surroundings for living neighbors.
@@ -103,7 +105,6 @@ class GridComponent {
 
   void findNeighbors(Cell cell) {
     // Remember, indexes are set at base 1. Bring them back to base zero.
-    // int r = cell.r - 1, c = cell.c - 1;
     int r = cell.r, c = cell.c;
     Map rotation = {
       0: {"r": r, "c": c + 1},
@@ -132,13 +133,35 @@ class GridComponent {
     }
   }
 
-  void buttonRun() {
+  void buttonStep() {
     go = true;
     stepForward();
+    buttonStop();
   }
 
   void buttonStop() {
     go = false;
+  }
+
+  Future<Null> buttonRun() async {
+    go = true;
+    while (go) {
+      // print("while(go) executed");
+      await loop();
+    }
+  }
+
+  Future<Null> loop() async {
+    // print("loop() executed");
+    if (go) {
+      if (generationsPast < int.parse(generationsToRun)) {
+        return (await new Future.delayed(
+            new Duration(seconds: num.parse(secondsPerGeneration)),
+            stepForward));
+      } else {
+        go = false;
+      }
+    }
   }
 
   /// Toggle the state (true/false) of the given cell.

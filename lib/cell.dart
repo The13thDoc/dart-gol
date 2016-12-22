@@ -13,14 +13,11 @@ class Cell {
 
   /// Prepare the next state (dead or alive).
   bool getNextState() {
-    if (alive) {
-      if (neighbors.length == 2 || neighbors.length == 3) {
-        return true; // alive
-      }
-    } else {
-      if (neighbors.length == 3) {
-        return true; // reborn
-      }
+    if (alive && neighbors.length == 2 || neighbors.length == 3) {
+      return true; // alive
+    }
+    if (!alive && neighbors.length == 3) {
+      return true; // reborn
     }
     return false;
   }

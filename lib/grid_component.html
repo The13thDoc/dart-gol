@@ -8,27 +8,31 @@
     <div class="head-2">
         <br>
         <input class="grid-size" [(ngModel)]="gridDimension" type="range"
-        min="5" max="50" step="1" (change)="updateGridSize()" >
+        min="5" max="100" step="1" (change)="updateGridSize()" >
         <input class="cell-size" [(ngModel)]="cellDimension" type="range"
         min="5" max="50" step="1" (change)="updateCellSize()">
     </div>
 
     <div class="head-3">
         <label>Generations to run:</label>
-        <div>{{generationsToRun}}</div>
+        <div>{{generationsToRun}}</div><input [(ngModel)]="generationsToRun"
+        type="range" min="1" max="1000000" step="1">
     </div>
 
     <div class="head-4">
-        <label>Time per generation:</label>
-        <div>{{secondsPerGeneration}}</div>
+        <label>Time per generation (seconds):</label>
+        <div>{{secondsPerGeneration}}</div><input [(ngModel)]="secondsPerGeneration"
+        type="range" min="0.01" max="30" step=".01">
     </div>
 
     <div class="head-5">
         <label>Generation:</label>
         <div>{{generationsPast}}</div><label>(Living cells): {{livingCells}}</label>
-        <button (click)="buttonRun(); $event.stopPropagation()">Step forward</button>
+        <button (click)="buttonStep(); $event.stopPropagation()">Step forward</button>
     </div>
 </h3>
+<button (click)="buttonRun()">Run</button>
+<button (click)="buttonStop()">Stop</button>
 <div class="grid">
     <div *ngFor="let column of columnsList" class="col-">
         <div *ngFor="let cell of column" class="cell"
@@ -41,5 +45,3 @@
         </div>
     </div>
 </div>
-
-<!-- <button (click)="buttonStop()">Stop</button> -->

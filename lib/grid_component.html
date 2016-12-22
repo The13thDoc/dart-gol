@@ -14,29 +14,31 @@
     </div>
 
     <div class="head-3">
-        <label>Cycles:</label>
-        <div>N/A</div>
+        <label>Generations to run:</label>
+        <div>{{generationsToRun}}</div>
     </div>
 
     <div class="head-4">
-        <label>Length of cycle:</label>
-        <div>N/A</div>
+        <label>Time per generation:</label>
+        <div>{{secondsPerGeneration}}</div>
     </div>
 
     <div class="head-5">
-        <label>Current cycle:</label>
-        <div>N/A</div>
+        <label>Generation:</label>
+        <div>{{generationsPast}}</div>
     </div>
 </h3>
 <div class="grid">
-    <div *ngFor="let column of rowsList" class="col-">
+    <div *ngFor="let column of columnsList" class="col-">
         <div *ngFor="let cell of column" class="cell"
-        id="{{cell[0]['id']}}"
-        [ngClass]="{alive: cell[0]['state']}"
+        id="{{cell.id}}"
+        [ngClass]="{alive: cell.alive}"
         [ngStyle]="{'width': cellDimensionPx,
         'height': cellDimensionPx}"
-        (click)="cell[0]['state'] = toggleState(cell[0]['state'])">
+        (click)="cell.alive = toggleState(cell.alive); $event.stopPropagation()">
 
         </div>
     </div>
 </div>
+<button (click)="buttonRun(); $event.stopPropagation()">Step forward</button>
+<!-- <button (click)="buttonStop()">Stop</button> -->

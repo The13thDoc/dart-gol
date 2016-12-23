@@ -1,52 +1,62 @@
 <h3 class="header">
+
     <div class="head-1">
-        <label>Size:</label>
-        <div>{{gridDimension}}x{{gridDimension}}</div>
+        <!-- <label>Size:</label> -->
         <input class="grid-size" [(ngModel)]="gridDimension" type="range"
-        min="5" max="1000" step="1" (change)="updateGridSize()" class="slider">
-        <div>{{cellDimension}}</div>
+        min="5" max="100" step="1" (change)="updateGridSize()" class="slider">
+        <div>
+            <label class="large-label grid-adjust">{{gridDimension}}x{{gridDimension}}</label>
+        </div>
+        <div><label class="small-label">{{cellDimension}} (pixels)</label></div>
         <input class="cell-size" [(ngModel)]="cellDimension" type="range"
-        min="5" max="50" step="1" (change)="updateCellSize()" class="slider">
-    </div>
-    
-    <div class="head-3">
-        <label>Generations to run:</label>
-        <div>{{generationsToRun}}</div><input [(ngModel)]="generationsToRun"
-        type="range" min="1" max="1000000" step="1" class="slider">
+        min="5" max="30" step="1" (change)="updateCellSize()" class="slider">
     </div>
 
-    <div class="head-4">
-        <label>Time per generation (seconds):</label>
-        <div>{{secondsPerGeneration}}</div><input [(ngModel)]="secondsPerGeneration"
+    <div class="head-2">
+        <div>
+            <label class="large-label">{{generationsPast}}</label>
+
+        </div>
+        <div>
+            <label class="small-label">{{livingCells}}</label>
+        </div>
+    </div>
+
+    <div class="head-3">
+        <!-- <label>Generations to run:</label> -->
+        <input [(ngModel)]="generationsToRun"
+        type="range" min="1" max="1000000" step="1" class="slider">
+        <div class="small-label">{{generationsToRun}}</div>
+        <div class="small-label">{{secondsPerGeneration}}</div>
+        <input [(ngModel)]="secondsPerGeneration"
         type="range" min="0.01" max="30" step=".01" class="slider">
     </div>
 
-    <div class="head-5">
-        <label>Generation:</label>
-        <div>{{generationsPast}}</div><label>(Living cells): {{livingCells}}</label>
-        <button (click)="buttonStep(); $event.stopPropagation()" class="btn">Step forward</button>
-    </div>
 </h3>
-<div>
-    <button (click)="buttonRun()" class="btn">Run</button>
-    <button (click)="buttonStop()" class="btn">Stop</button>
+<br>
+<div class="buttons">
     <div>
-        Reset: <button (click)="buttonRandom()" class="btn">Random</button>
-         <button (click)="buttonAllAlive()" class="btn">All Alive</button>
-         <button (click)="buttonAllDead()" class="btn">All Dead</button>
-         <button (click)="buttonRandom8()" class="btn">Random 8</button>
+        <button (click)="buttonRun()" class="btn">Run</button>
+        <button (click)="buttonStop()" class="btn">Stop</button>
+        <button (click)="buttonStep()" class="gradient">Step >></button>
+        <div>
+            Reset: <button (click)="buttonRandom()" class="btn">Random</button>
+             <button (click)="buttonAllAlive()" class="btn">All Alive</button>
+             <button (click)="buttonAllDead()" class="btn">All Dead</button>
+             <button (click)="buttonRandom8()" class="btn">Random 8</button>
+        </div>
     </div>
-</div>
+    <br>
+    <div class="grid">
+        <div *ngFor="let column of columnsList" class="col-">
+            <div *ngFor="let cell of column" class="cell"
+            id="{{cell.id}}"
+            [ngClass]="{alive: cell.alive}"
+            [ngStyle]="{'width': cellDimensionPx,
+            'height': cellDimensionPx}"
+            (click)="cell.alive = toggleState(cell.alive, cell.id); $event.stopPropagation()">
 
-<div class="grid">
-    <div *ngFor="let column of columnsList" class="col-">
-        <div *ngFor="let cell of column" class="cell"
-        id="{{cell.id}}"
-        [ngClass]="{alive: cell.alive}"
-        [ngStyle]="{'width': cellDimensionPx,
-        'height': cellDimensionPx}"
-        (click)="cell.alive = toggleState(cell.alive, cell.id); $event.stopPropagation()">
-
+            </div>
         </div>
     </div>
 </div>

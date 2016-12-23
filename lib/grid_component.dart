@@ -199,7 +199,6 @@ class GridComponent implements OnInit {
   }
 
   Future<Null> loop() async {
-    // print("loop() executed");
     if (go) {
       if (generationsPast < int.parse(generationsToRun)) {
         return (await new Future.delayed(

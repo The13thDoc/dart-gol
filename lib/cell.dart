@@ -4,6 +4,11 @@ class Cell {
   bool alive = false;
   List<Cell> neighbors;
   bool nextState = false;
+  /*
+   * rule 23/3
+   * High Life 23/36
+   */
+
 
   Cell(this.id, this.alive) {
     neighbors = [];

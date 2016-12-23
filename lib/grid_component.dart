@@ -3,36 +3,40 @@ import 'package:angular2/common.dart';
 
 import 'dart:async';
 import 'cell.dart';
+import 'dart:math';
+
+enum Init { randomBool, random8, allDead, allAlive }
 
 @Component(
   selector: 'grid-component',
   templateUrl: 'grid_component.html',
-  styleUrls: const ['grid_component.css'],
+  styleUrls: const ['grid_component.css', 'header_component.css'],
   directives: const [NgClass],
 )
-class GridComponent {
-  @Input()
-  String gridDimension = "50";
-
+class GridComponent implements OnInit {
+  String gridDimension = "25";
+  String generationsToRun = "1000";
+  String secondsPerGeneration = ".1";
   int generationsPast = 1;
-  String generationsToRun = "50";
-  String secondsPerGeneration = ".5";
   bool go = false;
 
-  List columnsList;
-  Map<String, Cell> lookupCells = {};
-  String cellDimension = "10";
+  String cellDimension = "15";
   String cellDimensionPx;
   int livingCells = 0;
 
+  List columnsList;
+  Map<String, Cell> lookupCells = {};
+  Init gridState;
+
   GridComponent() {
-    cellDimensionPx = "${cellDimension}px";
-    generateList();
+    updateCellSize();
+    generateList(Init.random8);
   }
 
-  Future<Null> generateList() async {
+  Future<Null> generateList(Init state) async {
     // This reset all cells to dead currently
     livingCells = 0;
+/*
     List<List> initGlider = [
       [0, 1, 0],
       [0, 0, 1],
@@ -52,6 +56,7 @@ class GridComponent {
       [0, 0, 1, 0, 0],
       [0, 0, 0, 0, 0],
     ];
+    */
     // top to bottom
     // left to right
     columnsList = [];
@@ -60,12 +65,45 @@ class GridComponent {
       for (int r = 0; r < int.parse(gridDimension); r++) {
         // incrememt r and c by 1, for base 1 instead of 0.
         String id = "${r + 1}x${c + 1}";
-        Cell cell = getDead(id);
+        Cell cell = initState(id, state);
+
+        if (cell.alive) updateLiveCount(cell.alive);
+        gridState = state;
+
         cellsList.add(cell);
         lookupCells.addAll({id: cell});
       }
       columnsList.add(cellsList);
     }
+  }
+
+  /// Initialize a grid of cells with the given state.
+  Cell initState(String id, Init init) {
+    switch (init) {
+      case Init.randomBool:
+        bool alive = new Random().nextBool();
+        if (alive) {
+          return getAlive(id);
+        } else {
+          return getDead(id);
+        }
+        break;
+      case Init.random8:
+        int alive = new Random().nextInt(8);
+        if (alive == 2 || alive == 3) {
+          return getAlive(id);
+        } else {
+          return getDead(id);
+        }
+        break;
+      case Init.allAlive:
+        return getAlive(id);
+        break;
+      case Init.allDead:
+        return getDead(id);
+        break;
+    }
+    return getDead(id);
   }
 
   Cell getAlive(String id) {
@@ -81,16 +119,6 @@ class GridComponent {
     if (go) grow();
   }
 
-  /// Check surroundings for living neighbors.
-  void verifyNeighbors() {
-    for (List col in columnsList) {
-      for (Cell cell in col) {
-        findNeighbors(cell);
-        cell.check();
-      }
-    }
-  }
-
   /// Iterate throw the grid, advancing each cell's state.
   void grow() {
     for (List col in columnsList) {
@@ -101,6 +129,16 @@ class GridComponent {
       }
     }
     generationsPast++;
+  }
+
+  /// Check surroundings for living neighbors.
+  void verifyNeighbors() {
+    for (List col in columnsList) {
+      for (Cell cell in col) {
+        findNeighbors(cell);
+        cell.check();
+      }
+    }
   }
 
   void findNeighbors(Cell cell) {
@@ -133,6 +171,15 @@ class GridComponent {
     }
   }
 
+  /// Toggle the state (true/false) of the given cell.
+  bool toggleState(bool state, String id) {
+    lookupCells[id].alive = !state;
+    updateLiveCount(!state);
+    return !state;
+  }
+
+  Future<Null> ngOnInit() async {}
+
   void buttonStep() {
     go = true;
     stepForward();
@@ -164,15 +211,8 @@ class GridComponent {
     }
   }
 
-  /// Toggle the state (true/false) of the given cell.
-  bool toggleState(bool state, String id) {
-    lookupCells[id].alive = !state;
-    updateLiveCount(!state);
-    return !state;
-  }
-
   void updateGridSize() {
-    generateList();
+    generateList(gridState);
   }
 
   void updateCellSize() {
@@ -185,5 +225,25 @@ class GridComponent {
     } else {
       livingCells--;
     }
+  }
+
+  void buttonRandom() {
+    generateList(Init.randomBool);
+    generationsPast = 0;
+  }
+
+  void buttonAllDead() {
+    generateList(Init.allDead);
+    generationsPast = 0;
+  }
+
+  void buttonAllAlive() {
+    generateList(Init.allAlive);
+    generationsPast = 0;
+  }
+
+  void buttonRandom8() {
+    generateList(Init.random8);
+    generationsPast = 0;
   }
 }

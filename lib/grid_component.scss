@@ -9,21 +9,6 @@ $cell-height: $square;
     border-radius: $radius;
 }
 
-.header:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-[class*='head-'] {
-    float: left;
-    width: 20%;
-}
-
-.head-1 {
-    width: 7%;
-}
-
 .cell {
     // width: $cell-width;
     // height: $cell-height;
@@ -40,10 +25,12 @@ $cell-height: $square;
     @include border-radius(10px);
 }
 
-.grid:after {
-  content: "";
-  display: table;
-  clear: both;
+.grid {
+    .grid:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 }
 
 [class*='col-'] {
@@ -52,8 +39,4 @@ $cell-height: $square;
     :last-of-type {
       padding-right: 0;
     }
-}
-
-.grid-size .cell-size {
-
 }

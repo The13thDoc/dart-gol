@@ -1,0 +1,37 @@
+.header:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+[class*='head-'] {
+  float: left;
+  width: 20%; }
+
+.btn {
+  border-radius: 28px;
+  box-shadow: 0px 1px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: medium;
+  background: #3498db;
+  padding: 5px 10px 5px 10px;
+  border: solid #1f628d 2px;
+  text-decoration: none; }
+
+.btn:hover {
+  background: #3cb0fd;
+  text-decoration: none; }
+
+.slider {
+  -webkit-appearance: none !important;
+  background: #0B8ADE;
+  height: 7px; }
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  background: #3498db;
+  height: 20px;
+  border-radius: 20px;
+  width: 10px; }
+
+/*# sourceMappingURL=header_component.css.map */

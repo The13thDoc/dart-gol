@@ -1,36 +1,61 @@
 /// forms.dart is soley for the formations.
 
-List initCell() {
-  return [
-      {'x': 1, 'y': 1, 'name': 'One cell'},
-      {'state': 1, 'previous': 0, 'next': 0, 'neighbors': 0,},
-    ];
+Map glider() {
+  return {
+    '1x1': false,
+    '1x2': false,
+    '1x3': false,
+    '1x4': false,
+    '1x5': false,
+    '2x1': false,
+    '2x2': false,
+    '2x3': true,
+    '2x4': false,
+    '2x5': false,
+    '3x1': false,
+    '3x2': false,
+    '3x3': false,
+    '3x4': true,
+    '3x5': false,
+    '4x1': false,
+    '4x2': true,
+    '4x3': true,
+    '4x4': true,
+    '4x5': false,
+    '5x1': false,
+    '5x2': false,
+    '5x3': false,
+    '5x4': false,
+    '5x5': false,
+  };
 }
 
-List initGlider() {
-  return [
-    {'x': 3, 'y': 3, 'name': 'glider'},
-    // row 1
-    {'id': '0x1', 'state': 0, 'previous': 0, 'next': 0, 'neighbors': 0,},
-    {'id': '0x2', 'state': 1, 'previous': 0, 'next': 0, 'neighbors': 0,},
-    {'id': '0x3', 'state': 0, 'previous': 0, 'next': 0, 'neighbors': 0,},
-
-    // row 2
-    {'id': '1x1', 'state': 0, 'previous': 0, 'next': 0, 'neighbors': 0,},
-    {'id': '1x2', 'state': 0, 'previous': 0, 'next': 0, 'neighbors': 0,},
-    {'id': '1x3', 'state': 1, 'previous': 0, 'next': 0, 'neighbors': 0,},
-
-    // row 3
-    {'id': '3x1', 'state': 1, 'previous': 0, 'next': 0, 'neighbors': 0,},
-    {'id': '3x2', 'state': 1, 'previous': 0, 'next': 0, 'neighbors': 0,},
-    {'id': '3x3', 'state': 1, 'previous': 0, 'next': 0, 'neighbors': 0,},
-  ];
-}
-
-List gliderForm() {
-  return [
-    [0,1,0],
-    [0,0,1],
-    [1,1,1]
-  ];
+Map rPentomino() {
+  return {
+    '1x1': false,
+    '1x2': false,
+    '1x3': false,
+    '1x4': false,
+    '1x5': false,
+    '2x1': false,
+    '2x2': false,
+    '2x3': true,
+    '2x4': true,
+    '2x5': false,
+    '3x1': false,
+    '3x2': true,
+    '3x3': true,
+    '3x4': false,
+    '3x5': false,
+    '4x1': false,
+    '4x2': false,
+    '4x3': true,
+    '4x4': false,
+    '4x5': false,
+    '5x1': false,
+    '5x2': false,
+    '5x3': false,
+    '5x4': false,
+    '5x5': false,
+  };
 }

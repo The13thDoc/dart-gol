@@ -2,10 +2,8 @@ import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
 
 import 'dart:async';
-import 'cell.dart';
-import 'dart:math';
-
-enum Init { randomBool, random8, allDead, allAlive }
+import 'package:dart_gol/cell.dart';
+import 'package:dart_gol/init_forms.dart';
 
 @Component(
   selector: 'grid-component',
@@ -26,46 +24,26 @@ class GridComponent implements OnInit {
 
   List columnsList;
   Map<String, Cell> lookupCells = {};
-  Init gridState;
+
 
   GridComponent() {
     updateCellSize();
-    generateList(Init.random8);
+    generateList(Init.rPentomino);
   }
 
   Future<Null> generateList(Init state) async {
     // This reset all cells to dead currently
     livingCells = 0;
-/*
-    List<List> initGlider = [
-      [0, 1, 0],
-      [0, 0, 1],
-      [1, 1, 1]
-    ];
-    List<List> initBlock = [
-      [0, 0, 0, 0, 0],
-      [0, 0, 1, 1, 0],
-      [0, 0, 1, 1, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-    ];
-    List<List> initBlinker = [
-      [0, 0, 0, 0, 0],
-      [0, 0, 1, 0, 0],
-      [0, 0, 1, 0, 0],
-      [0, 0, 1, 0, 0],
-      [0, 0, 0, 0, 0],
-    ];
-    */
+
     // top to bottom
     // left to right
     columnsList = [];
-    for (int c = 0; c < int.parse(gridDimension); c++) {
+    for (int c = 1; c <= int.parse(gridDimension); c++) {
       List<Cell> cellsList = [];
-      for (int r = 0; r < int.parse(gridDimension); r++) {
+      for (int r = 1; r <= int.parse(gridDimension); r++) {
         // incrememt r and c by 1, for base 1 instead of 0.
-        String id = "${r + 1}x${c + 1}";
-        Cell cell = initState(id, state);
+        String id = "${r}x${c}";
+        Cell cell = initState(id, state, int.parse(gridDimension));
 
         if (cell.alive) updateLiveCount(cell.alive);
         gridState = state;
@@ -75,43 +53,6 @@ class GridComponent implements OnInit {
       }
       columnsList.add(cellsList);
     }
-  }
-
-  /// Initialize a grid of cells with the given state.
-  Cell initState(String id, Init init) {
-    switch (init) {
-      case Init.randomBool:
-        bool alive = new Random().nextBool();
-        if (alive) {
-          return getAlive(id);
-        } else {
-          return getDead(id);
-        }
-        break;
-      case Init.random8:
-        int alive = new Random().nextInt(8);
-        if (alive == 2 || alive == 3) {
-          return getAlive(id);
-        } else {
-          return getDead(id);
-        }
-        break;
-      case Init.allAlive:
-        return getAlive(id);
-        break;
-      case Init.allDead:
-        return getDead(id);
-        break;
-    }
-    return getDead(id);
-  }
-
-  Cell getAlive(String id) {
-    return new Cell(id, true);
-  }
-
-  Cell getDead(String id) {
-    return new Cell(id, false);
   }
 
   void stepForward() {

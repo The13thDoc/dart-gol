@@ -7,7 +7,7 @@ import 'package:dart_gol/app_component.dart';
 
 class AppCmp {
   constructor(Location location) {
-    location.go('/dart-gol/web');
+    location.go('/dart-gol/web/index.hml');
   }
 }
 

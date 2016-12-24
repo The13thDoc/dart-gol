@@ -25,13 +25,13 @@ class GridComponent implements OnInit {
   List columnsList;
   Map<String, Cell> lookupCells = {};
 
-
   GridComponent() {
     updateCellSize();
     generateList(Init.rPentomino);
   }
 
   Future<Null> generateList(Init state) async {
+    generationsPast = 0;
     // This reset all cells to dead currently
     livingCells = 0;
 
@@ -53,6 +53,7 @@ class GridComponent implements OnInit {
       }
       columnsList.add(cellsList);
     }
+    tempForm = [];
   }
 
   void stepForward() {
@@ -151,13 +152,9 @@ class GridComponent implements OnInit {
     }
   }
 
-  void updateGridSize() {
-    generateList(gridState);
-  }
+  updateGridSize() => generateList(gridState);
 
-  void updateCellSize() {
-    cellDimensionPx = "${cellDimension}px";
-  }
+  updateCellSize() => cellDimensionPx = "${cellDimension}px";
 
   void updateLiveCount(bool state) {
     if (state) {
@@ -167,23 +164,15 @@ class GridComponent implements OnInit {
     }
   }
 
-  void buttonRandom() {
-    generateList(Init.randomBool);
-    generationsPast = 0;
-  }
+  buttonRandom() => generateList(Init.randomBool);
 
-  void buttonAllDead() {
-    generateList(Init.allDead);
-    generationsPast = 0;
-  }
+  buttonAllDead() => generateList(Init.allDead);
 
-  void buttonAllAlive() {
-    generateList(Init.allAlive);
-    generationsPast = 0;
-  }
+  buttonAllAlive() => generateList(Init.allAlive);
 
-  void buttonRandom8() {
-    generateList(Init.random8);
-    generationsPast = 0;
-  }
+  buttonRandom8() => generateList(Init.random8);
+
+  buttonGlider() => generateList(Init.glider);
+
+  buttonRPentomino() => generateList(Init.rPentomino);
 }

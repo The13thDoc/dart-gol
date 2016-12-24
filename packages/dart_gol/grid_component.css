@@ -1,0 +1,22 @@
+.cell {
+  margin: 1px;
+  background-color: purple; }
+
+.alive {
+  background-color: darkorange;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+
+.grid .grid:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+[class*='col-'] {
+  float: left; }
+  [class*='col-'] :last-of-type {
+    padding-right: 0; }
+
+/*# sourceMappingURL=grid_component.css.map */

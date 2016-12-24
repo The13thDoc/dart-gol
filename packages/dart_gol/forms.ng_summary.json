@@ -1,0 +1,20 @@
+{
+  "ngDeps": null,
+  "type": {
+    "glider": {
+      "class": "Identifier",
+      "name": "glider",
+      "moduleUrl": "asset:dart_gol/lib/forms.dart",
+      "prefix": null,
+      "value": null
+    },
+    "rPentomino": {
+      "class": "Identifier",
+      "name": "rPentomino",
+      "moduleUrl": "asset:dart_gol/lib/forms.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

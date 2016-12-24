@@ -1,0 +1,90 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/common.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:dart_gol/grid_component.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "AppComponent",
+        "7": [
+          {
+            "2": "GridComponent"
+          }
+        ]
+      }
+    ],
+    "6": "app_component.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/platform/common.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:dart_gol/grid_component.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "AppComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "app-component",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "AppComponent",
+        "moduleUrl": "asset:dart_gol/lib/app_component.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": "<h1>(<a href=\"https://en.wikipedia.org/wiki/John_Horton_Conway\" target=\"_blank\">{{conway}}</a>) {{title}}\n</h1>\n\n<grid-component></grid-component>\n",
+        "templateUrl": "asset:dart_gol/lib/app_component.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

@@ -5,6 +5,12 @@ import 'package:angular2/router.dart';
 
 import 'package:dart_gol/app_component.dart';
 
+class AppCmp {
+  constructor(Location location) {
+    location.go('/web');
+  }
+}
+
 void main() {
   bootstrap(AppComponent, [
     ROUTER_PROVIDERS,

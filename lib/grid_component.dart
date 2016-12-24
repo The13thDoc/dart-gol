@@ -3,6 +3,7 @@ import 'package:angular2/common.dart';
 
 import 'dart:async';
 import 'package:dart_gol/cell.dart';
+import 'package:dart_gol/rules.dart';
 import 'package:dart_gol/init_forms.dart';
 
 @Component(
@@ -17,6 +18,7 @@ class GridComponent implements OnInit {
   String secondsPerGeneration = ".1";
   int generationsPast = 1;
   bool go = false;
+  String ruleString;
 
   String cellDimension = "15";
   String cellDimensionPx;
@@ -26,6 +28,7 @@ class GridComponent implements OnInit {
   Map<String, Cell> lookupCells = {};
 
   GridComponent() {
+    ruleString = getRuleString();
     updateCellSize();
     generateList(Init.rPentomino);
   }
@@ -175,4 +178,27 @@ class GridComponent implements OnInit {
   buttonGlider() => generateList(Init.glider);
 
   buttonRPentomino() => generateList(Init.rPentomino);
+
+  String getRuleString() {
+    switch (rule) {
+      case Rule.TwoThree_Three:
+        return "23/3";
+        break;
+
+      case Rule.Twothree_Three_Six:
+        return "23/36";
+        break;
+    }
+    return "";
+  }
+
+  buttonRule23_3() {
+    rule = Rule.TwoThree_Three;
+    ruleString = getRuleString();
+  }
+
+  buttonRule23_36() {
+    rule = Rule.Twothree_Three_Six;
+    ruleString = getRuleString();
+  }
 }

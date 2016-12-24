@@ -1,6 +1,6 @@
 import 'package:angular2/core.dart';
 
-import 'grid_component.dart';
+import 'package:dart_gol/grid_component.dart';
 
 @Component(
   selector: 'app-component',

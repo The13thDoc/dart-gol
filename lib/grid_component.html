@@ -15,10 +15,16 @@
     <div class="head-2">
         <div>
             <label class="large-label">{{generationsPast}}</label>
-
         </div>
         <div>
             <label class="small-label">{{livingCells}}</label>
+        </div>
+        <div>
+            <label class="small-label">{{ruleString}}</label>
+        </div>
+        <div class="small-label">Rules:
+            <button (click)="buttonRule23_3()" class="btn small-text">23/3</button>
+            <button (click)="buttonRule23_36()" class="btn small-text">23/36</button>
         </div>
     </div>
 
@@ -34,13 +40,14 @@
 
 </h3>
 <br>
+<br>
 <div class="buttons">
     <div>
         <button (click)="buttonRun()" class="btn">Run</button>
         <button (click)="buttonStop()" class="btn">Stop</button>
         <button (click)="buttonStep()" class="gradient">Step >></button>
-        <div>
-            Reset: <button (click)="buttonRandom()" class="btn">Random</button>
+        <div class="small-label">
+            Reset as pattern: <button (click)="buttonRandom()" class="btn">Random</button>
              <button (click)="buttonAllAlive()" class="btn">All Alive</button>
              <button (click)="buttonAllDead()" class="btn">All Dead</button>
              <button (click)="buttonRandom8()" class="btn">Random 8</button>

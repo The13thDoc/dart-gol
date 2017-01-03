@@ -5,14 +5,16 @@ import 'dart:async';
 import 'package:dart_gol/cell.dart';
 import 'package:dart_gol/rules.dart';
 import 'package:dart_gol/init_forms.dart';
+import 'package:dart_gol/highlight_directive.dart';
 
 @Component(
   selector: 'grid-component',
   templateUrl: 'grid_component.html',
   styleUrls: const ['grid_component.css', 'header_component.css'],
-  directives: const [NgClass],
+  directives: const [NgClass, HighlightDirective],
 )
-class GridComponent implements OnInit {
+class GridComponent {
+  String color;
   String gridDimension = "25";
   String generationsToRun = "1000";
   String secondsPerGeneration = ".1";
@@ -25,12 +27,13 @@ class GridComponent implements OnInit {
   int livingCells = 0;
 
   List columnsList;
-  Map<String, Cell> lookupCells = {};
+  Map<String, Cell> lookupCells;
+  List<Cell> changingCells;
 
   GridComponent() {
     ruleString = getRuleString();
     updateCellSize();
-    generateList(Init.rPentomino);
+    generateList(Init.glider);
   }
 
   Future<Null> generateList(Init state) async {
@@ -41,6 +44,7 @@ class GridComponent implements OnInit {
     // top to bottom
     // left to right
     columnsList = [];
+    lookupCells = {};
     for (int c = 1; c <= int.parse(gridDimension); c++) {
       List<Cell> cellsList = [];
       for (int r = 1; r <= int.parse(gridDimension); r++) {
@@ -52,7 +56,8 @@ class GridComponent implements OnInit {
         gridState = state;
 
         cellsList.add(cell);
-        lookupCells.addAll({id: cell});
+        lookupCells.putIfAbsent(id, () => cell);
+        findNeighbors(cell);
       }
       columnsList.add(cellsList);
     }
@@ -64,26 +69,20 @@ class GridComponent implements OnInit {
     if (go) grow();
   }
 
-  /// Iterate throw the grid, advancing each cell's state.
-  void grow() {
-    for (List col in columnsList) {
-      for (Cell cell in col) {
-        if (cell.alive != cell.nextState) {
-          updateLiveCount(cell.grow());
-        }
-      }
+  /// Check each cell for living neighbors and its next state.
+  void verifyNeighbors() {
+    changingCells = [];
+    for (Cell cell in lookupCells.values) {
+      if (cell.check()) changingCells.add(cell);
     }
-    generationsPast++;
   }
 
-  /// Check surroundings for living neighbors.
-  void verifyNeighbors() {
-    for (List col in columnsList) {
-      for (Cell cell in col) {
-        findNeighbors(cell);
-        cell.check();
-      }
+  /// Iterate throw the grid, advancing each cell's state.
+  void grow() {
+    for (Cell cell in changingCells) {
+        updateLiveCount(cell.grow());
     }
+    generationsPast++;
   }
 
   void findNeighbors(Cell cell) {
@@ -100,17 +99,13 @@ class GridComponent implements OnInit {
       1.75: {"r": r + 1, "c": c + 1},
     };
     num angle = 0;
-    cell.neighbors.clear(); // IMPORTANT!
     while (angle <= 1.75) {
-      Cell neighbor;
       int row = rotation[angle]["r"];
       int col = rotation[angle]["c"];
 
       if (lookupCells.containsKey("${row}x${col}")) {
-        neighbor = lookupCells["${row}x${col}"];
-        if (neighbor.alive) {
-          cell.neighbors.add(neighbor);
-        }
+        Cell neighbor = lookupCells["${row}x${col}"];
+        cell.addNeighbor(neighbor);
       }
       angle += 0.25;
     }
@@ -122,8 +117,6 @@ class GridComponent implements OnInit {
     updateLiveCount(!state);
     return !state;
   }
-
-  Future<Null> ngOnInit() async {}
 
   void buttonStep() {
     go = true;
@@ -138,7 +131,6 @@ class GridComponent implements OnInit {
   Future<Null> buttonRun() async {
     go = true;
     while (go) {
-      // print("while(go) executed");
       await loop();
     }
   }

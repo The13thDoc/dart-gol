@@ -1,6 +1,7 @@
-(Conway's) Game of Life (in Dart)
+(Conway's) Game of Life
 =================================
 
 Uses Dart, AngularDart, SASS.
 
-Not runnable as a Github page yet.
+Compiled to JavaScript and served on GitHub pages:  
+[Game of Life](https://the13thdoc.github.io/dart-gol/)

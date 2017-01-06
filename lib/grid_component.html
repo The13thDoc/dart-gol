@@ -2,10 +2,10 @@
 
     <div class="head-1">
         <!-- <label>Size:</label> -->
-        <input [myHighlight] class="grid-size" [(ngModel)]="gridDimension" type="range"
+        <input class="grid-size" [(ngModel)]="gridDimension" type="range"
         min="5" max="200" step="1" (change)="updateGridSize()" class="slider">
         <div>
-            <label [myHighlight] class="large-label grid-adjust">
+            <label class="large-label grid-adjust">
                 {{gridDimension}}x{{gridDimension}}</label>
         </div>
         <div><label class="small-label">{{cellDimension}} (pixels)</label></div>
@@ -64,7 +64,7 @@
             [ngClass]="{alive: cell.alive}"
             [ngStyle]="{'width': cellDimensionPx,
             'height': cellDimensionPx}"
-            (click)="cell.alive = toggleState(cell.alive, cell.id); $event.stopPropagation()">
+            (click)="cell.alive = toggleState(cell.alive, cell.id)">
 
             </div>
         </div>

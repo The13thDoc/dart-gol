@@ -26,10 +26,9 @@ $cell-height: $square;
 }
 
 .grid {
-    
     .grid:after {
-        content: "";
-        display: table;
+        // content: "";
+        // display: table;
         clear: both;
     }
 }
@@ -39,5 +38,6 @@ $cell-height: $square;
 
     :last-of-type {
       padding-right: 0;
+      clear: both;
     }
 }

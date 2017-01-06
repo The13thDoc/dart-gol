@@ -5,18 +5,17 @@ import 'dart:async';
 import 'package:dart_gol/cell.dart';
 import 'package:dart_gol/rules.dart';
 import 'package:dart_gol/init_forms.dart';
-import 'package:dart_gol/highlight_directive.dart';
 
 @Component(
   selector: 'grid-component',
   templateUrl: 'grid_component.html',
   styleUrls: const ['grid_component.css', 'header_component.css'],
-  directives: const [NgClass, HighlightDirective],
+  directives: const [NgClass],
 )
 class GridComponent {
   String color;
-  String gridDimension = "25";
-  String generationsToRun = "1000";
+  String gridDimension = "30";
+  String generationsToRun = "10000";
   String secondsPerGeneration = ".1";
   int generationsPast = 1;
   bool go = false;
@@ -85,7 +84,7 @@ class GridComponent {
     generationsPast++;
   }
 
-  void findNeighbors(Cell cell) {
+  Future<Null> findNeighbors(Cell cell) async {
     // Remember, indexes are set at base 1. Bring them back to base zero.
     int r = cell.r, c = cell.c;
     Map rotation = {

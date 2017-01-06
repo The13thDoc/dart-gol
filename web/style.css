@@ -4,12 +4,13 @@ body {
 }
 
 footer {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 1px;
     width: 99%;
     text-align: center;
-    /*clear: both;*/
+    clear: both;
     z-index: -1;
+    padding-top: 25px;
 }
 
 img {

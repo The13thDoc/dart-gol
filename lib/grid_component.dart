@@ -3,56 +3,46 @@ import 'package:angular2/common.dart';
 
 import 'dart:async';
 import 'package:dart_gol/cell.dart';
-import 'package:dart_gol/rules.dart';
 import 'package:dart_gol/init_forms.dart';
+import 'package:dart_gol/header_component.dart';
 
 @Component(
   selector: 'grid-component',
   templateUrl: 'grid_component.html',
-  styleUrls: const ['grid_component.css', 'header_component.css'],
+  styleUrls: const ['grid_component.css'],
   directives: const [NgClass],
 )
 class GridComponent {
-  String color;
-  String gridDimension = "30";
-  String generationsToRun = "10000";
-  String secondsPerGeneration = ".1";
-  int generationsPast = 1;
   bool go = false;
-  String ruleString;
-
-  String cellDimension = "15";
-  String cellDimensionPx;
-  int livingCells = 0;
 
   List columnsList;
   Map<String, Cell> lookupCells;
   List<Cell> changingCells;
 
-  GridComponent() {
-    ruleString = getRuleString();
-    updateCellSize();
+  HeaderComponent header;
+
+  GridComponent(this. header) {
     generateList(Init.glider);
   }
 
   Future<Null> generateList(Init state) async {
-    generationsPast = 0;
+    gridState = state;
+    header.generationsPast = 0;
     // This reset all cells to dead currently
-    livingCells = 0;
+    header.livingCells = 0;
 
     // top to bottom
     // left to right
     columnsList = [];
     lookupCells = {};
-    for (int c = 1; c <= int.parse(gridDimension); c++) {
+    for (int c = 1; c <= int.parse(header.gridDimension); c++) {
       List<Cell> cellsList = [];
-      for (int r = 1; r <= int.parse(gridDimension); r++) {
+      for (int r = 1; r <= int.parse(header.gridDimension); r++) {
         // incrememt r and c by 1, for base 1 instead of 0.
         String id = "${r}x${c}";
-        Cell cell = initState(id, state, int.parse(gridDimension));
+        Cell cell = initState(id, state, int.parse(header.gridDimension));
 
-        if (cell.alive) updateLiveCount(cell.alive);
-        gridState = state;
+        if (cell.alive) header.updateLiveCount(cell.alive);
 
         cellsList.add(cell);
         lookupCells.putIfAbsent(id, () => cell);
@@ -79,9 +69,9 @@ class GridComponent {
   /// Iterate throw the grid, advancing each cell's state.
   void grow() {
     for (Cell cell in changingCells) {
-        updateLiveCount(cell.grow());
+      header.updateLiveCount(cell.grow());
     }
-    generationsPast++;
+    header.generationsPast++;
   }
 
   Future<Null> findNeighbors(Cell cell) async {
@@ -113,7 +103,7 @@ class GridComponent {
   /// Toggle the state (true/false) of the given cell.
   bool toggleState(bool state, String id) {
     lookupCells[id].alive = !state;
-    updateLiveCount(!state);
+    header.updateLiveCount(!state);
     return !state;
   }
 
@@ -136,25 +126,13 @@ class GridComponent {
 
   Future<Null> loop() async {
     if (go) {
-      if (generationsPast < int.parse(generationsToRun)) {
+      if (header.generationsPast < int.parse(header.generationsToRun)) {
         return (await new Future.delayed(
-            new Duration(seconds: num.parse(secondsPerGeneration)),
+            new Duration(seconds: num.parse(header.secondsPerGeneration)),
             stepForward));
       } else {
         go = false;
       }
-    }
-  }
-
-  updateGridSize() => generateList(gridState);
-
-  updateCellSize() => cellDimensionPx = "${cellDimension}px";
-
-  void updateLiveCount(bool state) {
-    if (state) {
-      livingCells++;
-    } else {
-      livingCells--;
     }
   }
 
@@ -169,27 +147,4 @@ class GridComponent {
   buttonGlider() => generateList(Init.glider);
 
   buttonRPentomino() => generateList(Init.rPentomino);
-
-  String getRuleString() {
-    switch (rule) {
-      case Rule.TwoThree_Three:
-        return "23/3";
-        break;
-
-      case Rule.Twothree_Three_Six:
-        return "23/36";
-        break;
-    }
-    return "";
-  }
-
-  buttonRule23_3() {
-    rule = Rule.TwoThree_Three;
-    ruleString = getRuleString();
-  }
-
-  buttonRule23_36() {
-    rule = Rule.Twothree_Three_Six;
-    ruleString = getRuleString();
-  }
 }

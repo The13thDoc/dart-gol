@@ -31,10 +31,6 @@ br {
   background-color: orange;
   opacity: 0.2; }
 
-.buttons {
-  width: 100%;
-  text-align: center; }
-
 .btn {
   border-radius: 28px;
   box-shadow: 0px 1px 3px #666666;

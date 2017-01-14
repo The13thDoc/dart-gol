@@ -13,10 +13,9 @@
   clear: both; }
 
 [class*='col-'] {
-  float: left; }
-  [class*='col-'] :last-of-type {
-    padding-right: 0;
-    clear: both; }
+  float: left;
+  last-of-type-padding-right: 0;
+  last-of-type-clear: both; }
 
 .btn {
   border-radius: 28px;
@@ -33,10 +32,6 @@
   background: #3cb0fd;
   text-decoration: none; }
 
-.gradient:hover {
-  background: #3cb0fd;
-  text-decoration: none; }
-
 .gradient {
   background-image: -webkit-linear-gradient(left, #868f96, #2980b9);
   background-image: -moz-linear-gradient(left, #868f96, #2980b9);
@@ -50,6 +45,10 @@
   color: #ffffff;
   padding: 5px 10px 5px 10px;
   border: solid #1f628d 2px;
+  text-decoration: none; }
+
+.gradient:hover {
+  background: #3cb0fd;
   text-decoration: none; }
 
 /*# sourceMappingURL=grid_component.css.map */

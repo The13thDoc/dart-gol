@@ -10,7 +10,7 @@ import 'package:dart_gol/grid_component.dart';
   templateUrl: 'header_component.html',
   styleUrls: const ['header_component.css'],
   directives: const [],
-  providers: const [HeaderComponent],
+  providers: const [],
 )
 class HeaderComponent {
   String gridDimension = "30";
@@ -26,11 +26,13 @@ class HeaderComponent {
 
   HeaderComponent() {
     grid = new GridComponent(this);
-    ruleString = getRuleString();
     updateCellSize();
+    // grid.generateList(Init.glider);
   }
 
-  updateGridSize() => grid.generateList(gridState);
+  updateGridSize() {
+    grid.generateList(gridState);
+  }
 
   updateCellSize() => cellDimensionPx = "${cellDimension}px";
 

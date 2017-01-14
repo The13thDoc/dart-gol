@@ -1,18 +1,20 @@
-<div class="buttons">
+<div class="buttons" >
+
     <div>
         <button (click)="buttonRun()" class="btn">Run</button>
         <button (click)="buttonStop()" class="btn">Stop</button>
         <button (click)="buttonStep()" class="gradient">Step >></button>
-        <div class="small-label">
+        <!-- <div class="small-label">
             Reset as pattern: <button (click)="buttonRandom()" class="btn">Random</button>
              <button (click)="buttonAllAlive()" class="btn">All Alive</button>
              <button (click)="buttonAllDead()" class="btn">All Dead</button>
              <button (click)="buttonRandom8()" class="btn">Random 8</button>
              <button (click)="buttonGlider()" class="btn">Glider</button>
              <button (click)="buttonRPentomino()" class="btn">R-Pentomino</button>
-        </div>
+        </div> -->
     </div>
     <br>
+    <forms-menu></forms-menu>
     <div class="grid">
         <div *ngFor="let column of columnsList" class="col-">
             <div *ngFor="let cell of column" class="cell"

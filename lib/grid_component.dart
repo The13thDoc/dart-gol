@@ -5,12 +5,14 @@ import 'dart:async';
 import 'package:dart_gol/cell.dart';
 import 'package:dart_gol/init_forms.dart';
 import 'package:dart_gol/header_component.dart';
+import 'package:dart_gol/forms_menu.dart';
 
 @Component(
   selector: 'grid-component',
   templateUrl: 'grid_component.html',
   styleUrls: const ['grid_component.css'],
-  directives: const [NgClass],
+  directives: const [NgClass, FormsMenu],
+  providers: const [FormsMenu],
 )
 class GridComponent {
   bool go = false;
@@ -21,11 +23,12 @@ class GridComponent {
 
   HeaderComponent header;
 
-  GridComponent(this. header) {
-    generateList(Init.glider);
+  GridComponent(this.header) {
+    // generateList(Init.glider);
   }
 
   Future<Null> generateList(Init state) async {
+    print("generating grid");
     gridState = state;
     header.generationsPast = 0;
     // This reset all cells to dead currently
@@ -35,6 +38,7 @@ class GridComponent {
     // left to right
     columnsList = [];
     lookupCells = {};
+    print("${header.gridDimension}");
     for (int c = 1; c <= int.parse(header.gridDimension); c++) {
       List<Cell> cellsList = [];
       for (int r = 1; r <= int.parse(header.gridDimension); r++) {

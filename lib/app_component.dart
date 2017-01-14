@@ -8,7 +8,7 @@ import 'package:dart_gol/header_component.dart';
   templateUrl: 'app_component.html',
   directives: const [HeaderComponent, GridComponent],
   styleUrls: const [],
-  providers: const [HeaderComponent, GridComponent],
+  providers: const [HeaderComponent],
 )
 class AppComponent {
   String conway = "Conway's";

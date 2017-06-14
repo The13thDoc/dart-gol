@@ -1,0 +1,82 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "package:dart_gol/rules.dart",
+        "5": false
+      },
+      {
+        "1": "package:dart_gol/init_forms.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/common.dart",
+        "5": false
+      },
+      {
+        "1": "package:dart_gol/grid_component.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "HeaderComponent",
+        "7": [
+          {
+            "2": "NgModel"
+          },
+          {
+            "2": "GridComponent"
+          }
+        ]
+      }
+    ],
+    "6": "header_component.dart"
+  },
+  "type": {
+    "HeaderComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "header-component",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "HeaderComponent",
+        "moduleUrl": "asset:dart_gol/lib/header_component.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 0,
+        "template": "<h3 class=\"header\">\n    <div class=\"head-1\">\n        <!-- <label>Size:</label> -->\n        <input class=\"grid-size\" [(ngModel)]=\"gridDimension\" type=\"range\"\n        min=\"5\" max=\"100\" step=\"1\" (change)=\"updateGridSize()\" class=\"slider\">\n        <div>\n            <label class=\"two-font grid-adjust\">\n                {{gridDimension}}x{{gridDimension}}</label>\n        </div>\n        <div>\n            <label class=\"dec-9-font\">{{cellDimension}} (pixels)</label>\n        </div>\n        <input class=\"cell-size\" [(ngModel)]=\"cellDimension\" type=\"range\"\n        min=\"1\" max=\"30\" step=\"1\" (change)=\"updateCellSize()\" class=\"slider\">\n    </div>\n\n    <div class=\"head-2\">\n        <div>\n            <label class=\"two-font\">{{generationsPast}}</label>\n            <label class=\"dec-7-font\">Generations Past</label>\n        </div>\n        <hr>\n        <div>\n            <label class=\"two-font\">{{livingCells}}</label>\n            <label class=\"dec-7-font\">Living Cells</label>\n        </div>\n        <div>\n            <label class=\"dec-9-font\">{{ruleString}}</label>\n        </div>\n        <div class=\"dec-9-font\">Rules:\n            <button (click)=\"buttonRule23_3()\" class=\"btn dec-7-font\">23/3</button>\n            <button (click)=\"buttonRule23_36()\" class=\"btn dec-7-font\">23/36</button>\n        </div>\n    </div>\n\n    <div class=\"head-3\">\n        <input [(ngModel)]=\"generationsToRun\"\n        type=\"range\" min=\"1\" max=\"1000000\" step=\"1\" class=\"slider\">\n        <div class=\"dec-9-font\">{{generationsToRun}}</div>\n        <div class=\"dec-9-font\">{{secondsPerGeneration}}</div>\n        <input [(ngModel)]=\"secondsPerGeneration\"\n        type=\"range\" min=\"0.1\" max=\"2.0\" step=\".1\" class=\"slider\">\n    </div>\n</h3>\n<br>\n<grid-component>Loading grid...</grid-component>\n",
+        "templateUrl": "asset:dart_gol/lib/header_component.html",
+        "styles": [],
+        "styleUrls": [
+          "asset:dart_gol/lib/header_component.css",
+          "asset:dart_gol/lib/style.css"
+        ],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

@@ -19,23 +19,33 @@
         "5": false
       },
       {
-        "1": "package:dart_gol/rules.dart",
+        "1": "package:dart_gol/init_forms.dart",
         "5": false
       },
       {
-        "1": "package:dart_gol/init_forms.dart",
+        "1": "package:dart_gol/header_component.dart",
+        "5": false
+      },
+      {
+        "1": "package:dart_gol/forms_menu.dart",
         "5": false
       }
     ],
     "5": [
       {
         "1": "GridComponent",
-        "6": [
-          "OnInit"
+        "5": [
+          {
+            "1": "HeaderComponent",
+            "4": "header"
+          }
         ],
         "7": [
           {
             "2": "NgClass"
+          },
+          {
+            "2": "FormsMenu"
           }
         ]
       }
@@ -55,7 +65,28 @@
         "prefix": null,
         "isHost": false,
         "value": null,
-        "diDeps": []
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "HeaderComponent",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
       },
       "changeDetection": 6,
       "inputs": {},
@@ -64,17 +95,15 @@
       "hostListeners": {},
       "hostProperties": {},
       "hostAttributes": {},
-      "lifecycleHooks": [
-        0
-      ],
+      "lifecycleHooks": [],
       "template": {
         "encapsulation": 0,
-        "template": "<h3 class=\"header\">\n\n    <div class=\"head-1\">\n        <!-- <label>Size:</label> -->\n        <input class=\"grid-size\" [(ngModel)]=\"gridDimension\" type=\"range\"\n        min=\"5\" max=\"100\" step=\"1\" (change)=\"updateGridSize()\" class=\"slider\">\n        <div>\n            <label class=\"large-label grid-adjust\">{{gridDimension}}x{{gridDimension}}</label>\n        </div>\n        <div><label class=\"small-label\">{{cellDimension}} (pixels)</label></div>\n        <input class=\"cell-size\" [(ngModel)]=\"cellDimension\" type=\"range\"\n        min=\"5\" max=\"30\" step=\"1\" (change)=\"updateCellSize()\" class=\"slider\">\n    </div>\n\n    <div class=\"head-2\">\n        <div>\n            <label class=\"large-label\">{{generationsPast}}</label>\n        </div>\n        <div>\n            <label class=\"small-label\">{{livingCells}}</label>\n        </div>\n        <div>\n            <label class=\"small-label\">{{ruleString}}</label>\n        </div>\n        <div class=\"small-label\">Rules:\n            <button (click)=\"buttonRule23_3()\" class=\"btn small-text\">23/3</button>\n            <button (click)=\"buttonRule23_36()\" class=\"btn small-text\">23/36</button>\n        </div>\n    </div>\n\n    <div class=\"head-3\">\n        <!-- <label>Generations to run:</label> -->\n        <input [(ngModel)]=\"generationsToRun\"\n        type=\"range\" min=\"1\" max=\"1000000\" step=\"1\" class=\"slider\">\n        <div class=\"small-label\">{{generationsToRun}}</div>\n        <div class=\"small-label\">{{secondsPerGeneration}}</div>\n        <input [(ngModel)]=\"secondsPerGeneration\"\n        type=\"range\" min=\"0.01\" max=\"30\" step=\".01\" class=\"slider\">\n    </div>\n\n</h3>\n<br>\n<br>\n<div class=\"buttons\">\n    <div>\n        <button (click)=\"buttonRun()\" class=\"btn\">Run</button>\n        <button (click)=\"buttonStop()\" class=\"btn\">Stop</button>\n        <button (click)=\"buttonStep()\" class=\"gradient\">Step >></button>\n        <div class=\"small-label\">\n            Reset as pattern: <button (click)=\"buttonRandom()\" class=\"btn\">Random</button>\n             <button (click)=\"buttonAllAlive()\" class=\"btn\">All Alive</button>\n             <button (click)=\"buttonAllDead()\" class=\"btn\">All Dead</button>\n             <button (click)=\"buttonRandom8()\" class=\"btn\">Random 8</button>\n             <button (click)=\"buttonGlider()\" class=\"btn\">Glider</button>\n             <button (click)=\"buttonRPentomino()\" class=\"btn\">R-Pentomino</button>\n        </div>\n    </div>\n    <br>\n    <div class=\"grid\">\n        <div *ngFor=\"let column of columnsList\" class=\"col-\">\n            <div *ngFor=\"let cell of column\" class=\"cell\"\n            id=\"{{cell.id}}\"\n            [ngClass]=\"{alive: cell.alive}\"\n            [ngStyle]=\"{'width': cellDimensionPx,\n            'height': cellDimensionPx}\"\n            (click)=\"cell.alive = toggleState(cell.alive, cell.id); $event.stopPropagation()\">\n\n            </div>\n        </div>\n    </div>\n</div>\n",
+        "template": "<div class=\"main\">\n    <div class=\"buttons dec-9-font\" >\n        <button (click)=\"buttonRun()\" class=\"btn\">Run</button>\n        <button (click)=\"buttonStop()\" class=\"btn\">Stop</button>\n        <button (click)=\"buttonStep()\" class=\"gradient\">Step >></button>\n        <hr>\n        <div>\n            Reset as pattern: <br><button (click)=\"buttonRandom()\" class=\"btn\">Random</button>\n             <button (click)=\"buttonAllAlive()\" class=\"btn\">All Alive</button>\n             <button (click)=\"buttonAllDead()\" class=\"btn\">All Dead</button>\n             <button (click)=\"buttonRandom8()\" class=\"btn\">Random 8</button>\n             <button (click)=\"buttonGlider()\" class=\"btn\">Glider</button>\n             <button (click)=\"buttonRPentomino()\" class=\"btn\">R-Pentomino</button>\n        </div>\n    </div>\n    <br>\n    <!-- <forms-menu></forms-menu> -->\n    <br>\n    <div class=\"main\">\n        <div class=\"grid\">\n            <div *ngFor=\"let column of columnsList\" class=\"col-\">\n                <div *ngFor=\"let cell of column\" class=\"cell\"\n                    id=\"{{cell.id}}\"\n                    [ngClass]=\"{alive: cell.alive}\"\n                    [ngStyle]=\"{'width': header.cellDimensionPx,\n                    'height': header.cellDimensionPx}\"\n                    (click)=\"cell.alive = toggleState(cell.alive, cell.id)\">\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
         "templateUrl": "asset:dart_gol/lib/grid_component.html",
         "styles": [],
         "styleUrls": [
           "asset:dart_gol/lib/grid_component.css",
-          "asset:dart_gol/lib/header_component.css"
+          "asset:dart_gol/lib/style.css"
         ],
         "ngContentSelectors": []
       },

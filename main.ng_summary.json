@@ -7,18 +7,6 @@
         "5": false
       },
       {
-        "1": "package:angular2/platform/common.dart",
-        "5": false
-      },
-      {
-        "1": "package:angular2/angular2.dart",
-        "5": false
-      },
-      {
-        "1": "package:angular2/router.dart",
-        "5": false
-      },
-      {
         "1": "package:dart_gol/app_component.dart",
         "5": false
       }

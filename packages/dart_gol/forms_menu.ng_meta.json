@@ -7,42 +7,37 @@
         "5": false
       },
       {
-        "1": "package:dart_gol/header_component.dart",
+        "1": "package:dart_gol/init_forms.dart",
         "5": false
       }
     ],
     "5": [
       {
-        "1": "AppComponent",
-        "7": [
-          {
-            "2": "HeaderComponent"
-          }
-        ]
+        "1": "FormsMenu"
       }
     ],
-    "6": "app_component.dart",
+    "6": "forms_menu.dart",
     "7": [
       {
         "1": "package:angular2/core.template.dart",
         "4": "i0"
       },
       {
-        "1": "package:dart_gol/header_component.template.dart",
+        "1": "package:dart_gol/init_forms.template.dart",
         "4": "i1"
       }
     ]
   },
   "type": {
-    "AppComponent": {
+    "FormsMenu": {
       "class": "Directive",
       "isComponent": true,
-      "selector": "app-component",
+      "selector": "forms-menu",
       "exportAs": null,
       "type": {
         "class": "Type",
-        "name": "AppComponent",
-        "moduleUrl": "asset:dart_gol/lib/app_component.dart",
+        "name": "FormsMenu",
+        "moduleUrl": "asset:dart_gol/lib/forms_menu.dart",
         "prefix": null,
         "isHost": false,
         "value": null,
@@ -57,11 +52,13 @@
       "hostAttributes": {},
       "lifecycleHooks": [],
       "template": {
-        "encapsulation": 2,
-        "template": "<h1>(<a href=\"https://en.wikipedia.org/wiki/John_Horton_Conway\" target=\"_blank\">{{conway}}</a>) {{title}}\n</h1>\n<header-component>Loading header...</header-component>\n",
-        "templateUrl": "asset:dart_gol/lib/app_component.html",
+        "encapsulation": 0,
+        "template": "<!-- <div class=\"menu-icon\" (click)=\"isVisible = !isVisible\"></div> -->\n<div class=\"ico\" (click)=\"isVisible = !isVisible\"><a href=\"#\"></a></div>\n\n<div *ngIf=\"isVisible\" class=\"menu\">\n<!-- <div [style.display]=\"isVisible ? 'inline' : 'none'\" > -->\n    <div *ngFor=\"let form of forms\" class=\"item\"\n    (click)=\"click(form)\">\n        {{form}}\n    </div>\n</div>\n",
+        "templateUrl": "asset:dart_gol/lib/forms_menu.html",
         "styles": [],
-        "styleUrls": [],
+        "styleUrls": [
+          "asset:dart_gol/lib/forms_menu.css"
+        ],
         "ngContentSelectors": []
       },
       "providers": [],

@@ -1,0 +1,39 @@
+// $square: 20px
+// $cell-width: $square
+// $cell-height: $square
+
+.main
+    width: 100%
+    text-align: center
+    margin: 20px 0px 0px 0px
+
+@mixin border-radius($radius)
+    -webkit-border-radius: $radius
+    -moz-border-radius: $radius
+    -ms-border-radius: $radius
+    border-radius: $radius
+
+.cell
+    margin: 1px
+    background-color: purple
+
+.cell:hover
+    background-color: #1CAB0B
+    // opacity: 0.2
+    @include border-radius(10px)
+
+
+.alive
+    background-color: darkorange
+    @include border-radius(10px)
+
+.grid
+    .grid:after
+        clear: both
+
+[class*='col-']
+    float: left
+
+    :last-of-type
+        padding-right: 0
+        clear: both

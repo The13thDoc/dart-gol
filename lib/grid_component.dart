@@ -10,9 +10,9 @@ import 'package:dart_gol/forms_menu.dart';
 @Component(
   selector: 'grid-component',
   templateUrl: 'grid_component.html',
-  styleUrls: const ['grid_component.css'],
+  styleUrls: const ['grid_component.css', 'style.css'],
   directives: const [NgClass, FormsMenu],
-  providers: const [FormsMenu],
+  providers: const [],
 )
 class GridComponent {
   bool go = false;
@@ -21,24 +21,28 @@ class GridComponent {
   Map<String, Cell> lookupCells;
   List<Cell> changingCells;
 
-  HeaderComponent header;
+  final HeaderComponent header;
 
   GridComponent(this.header) {
-    // generateList(Init.glider);
+    print("GridComponent generated.");
+    generateList(Init.rPentomino);
+  }
+
+  Future<Null> generateListDefault() async {
+    generateList(Init.glider);
   }
 
   Future<Null> generateList(Init state) async {
-    print("generating grid");
+    print("generating grid: ${header.gridDimension}");
     gridState = state;
     header.generationsPast = 0;
-    // This reset all cells to dead currently
+    // This resets all cells to dead
     header.livingCells = 0;
 
     // top to bottom
     // left to right
     columnsList = [];
     lookupCells = {};
-    print("${header.gridDimension}");
     for (int c = 1; c <= int.parse(header.gridDimension); c++) {
       List<Cell> cellsList = [];
       for (int r = 1; r <= int.parse(header.gridDimension); r++) {

@@ -1,15 +1,14 @@
-library Header;
-
 import 'package:angular2/core.dart';
 import 'package:dart_gol/rules.dart';
 import 'package:dart_gol/init_forms.dart';
+import 'package:angular2/common.dart';
 import 'package:dart_gol/grid_component.dart';
 
 @Component(
   selector: 'header-component',
   templateUrl: 'header_component.html',
-  styleUrls: const ['header_component.css'],
-  directives: const [],
+  styleUrls: const ['header_component.css', 'style.css'],
+  directives: const [NgModel, GridComponent],
   providers: const [],
 )
 class HeaderComponent {
@@ -18,19 +17,21 @@ class HeaderComponent {
   String secondsPerGeneration = ".1";
   int generationsPast = 1;
   int livingCells = 0;
-  String cellDimension = "15";
+  String cellDimension = "8";
   String cellDimensionPx;
   String ruleString;
 
   GridComponent grid;
 
   HeaderComponent() {
-    grid = new GridComponent(this);
+    print("HeaderComponent generated.");
+    // grid = new GridComponent(this);
     updateCellSize();
-    // grid.generateList(Init.glider);
+    getDefaultRule();
   }
 
   updateGridSize() {
+    print("Grid state: $gridState");
     grid.generateList(gridState);
   }
 
@@ -44,18 +45,21 @@ class HeaderComponent {
     }
   }
 
+  // TODO: Move this into rules.dart
   String getRuleString() {
     switch (rule) {
       case Rule.TwoThree_Three:
         return "23/3";
         break;
 
-      case Rule.Twothree_Three_Six:
+      case Rule.Twothree_ThreeSix:
         return "23/36";
         break;
     }
     return "";
   }
+
+  getDefaultRule() => ruleString = getRuleString();
 
   buttonRule23_3() {
     rule = Rule.TwoThree_Three;
@@ -63,7 +67,7 @@ class HeaderComponent {
   }
 
   buttonRule23_36() {
-    rule = Rule.Twothree_Three_Six;
+    rule = Rule.Twothree_ThreeSix;
     ruleString = getRuleString();
   }
 }

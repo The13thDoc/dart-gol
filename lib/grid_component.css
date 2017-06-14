@@ -1,6 +1,18 @@
+.main {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0px 0px 0px; }
+
 .cell {
   margin: 1px;
   background-color: purple; }
+
+.cell:hover {
+  background-color: #1CAB0B;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
 
 .alive {
   background-color: darkorange;
@@ -16,39 +28,5 @@
   float: left;
   last-of-type-padding-right: 0;
   last-of-type-clear: both; }
-
-.btn {
-  border-radius: 28px;
-  box-shadow: 0px 1px 3px #666666;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 1em;
-  background: #3498db;
-  padding: 5px 10px 5px 10px;
-  border: solid #1f628d 2px;
-  text-decoration: none; }
-
-.btn:hover {
-  background: #3cb0fd;
-  text-decoration: none; }
-
-.gradient {
-  background-image: -webkit-linear-gradient(left, #868f96, #2980b9);
-  background-image: -moz-linear-gradient(left, #868f96, #2980b9);
-  background-image: -ms-linear-gradient(left, #868f96, #2980b9);
-  background-image: -o-linear-gradient(left, #868f96, #2980b9);
-  background-image: linear-gradient(to right, #868f96, #2980b9);
-  border-radius: 28px;
-  box-shadow: 0px 1px 3px #666666;
-  font-family: Arial;
-  font-size: 1em;
-  color: #ffffff;
-  padding: 5px 10px 5px 10px;
-  border: solid #1f628d 2px;
-  text-decoration: none; }
-
-.gradient:hover {
-  background: #3cb0fd;
-  text-decoration: none; }
 
 /*# sourceMappingURL=grid_component.css.map */

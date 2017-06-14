@@ -28,6 +28,7 @@ class Cell {
     for (Cell cell in neighbors.values) {
       if (cell.alive) living++;
     }
+    // TODO: Move this into rules.dart
     switch (rule) {
       case Rule.TwoThree_Three:
         if (alive && (living == 2 || living == 3)) {
@@ -39,7 +40,7 @@ class Cell {
         return false;
         break;
 
-      case Rule.Twothree_Three_Six:
+      case Rule.Twothree_ThreeSix:
         if (alive && (living == 2 || living == 3)) {
           return true; // alive
         }

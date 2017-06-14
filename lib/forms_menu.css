@@ -1,9 +1,24 @@
-.menu-icon {
-  border-bottom: 17px double black;
-  border-top: 6px solid black;
-  height: 0.3em;
-  width: 2em;
-  margin: 1em; }
+.ico {
+  position: relative;
+  width: auto; }
+
+.ico rt {
+  padding-left: 1.25em;
+  /* 20px/16px */ }
+
+.ico a:before {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 0px;
+  width: 0.75em;
+  /* 12px/16px */
+  height: 0.125em;
+  /* 2px/16px */
+  border-top: 0.375em double #000;
+  /* 6px/16px */
+  border-bottom: 0.125em solid #000;
+  /* 2px / 16px */ }
 
 .menu {
   padding: 0em 0em 1em 0em; }

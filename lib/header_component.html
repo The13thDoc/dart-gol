@@ -2,7 +2,7 @@
     <div class="head-1">
         <!-- <label>Size:</label> -->
         <input class="grid-size" [(ngModel)]="gridDimension" type="range"
-        min="5" max="200" step="1" (click)="updateGridSize()" class="slider">
+        min="5" max="100" step="1" (change)="updateGridSize()" class="slider">
         <div>
             <label class="two-font grid-adjust">
                 {{gridDimension}}x{{gridDimension}}</label>

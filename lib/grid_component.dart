@@ -23,10 +23,25 @@ class GridComponent {
 
   final HeaderComponent header;
 
-  GridComponent(this.header) {
-    print("GridComponent generated.");
-    generateList(Init.rPentomino);
+  static final Map<HeaderComponent, GridComponent> _cache =
+      <HeaderComponent, GridComponent>{};
+
+  factory GridComponent(HeaderComponent header) {
+    if (_cache.containsKey(header)) {
+      return _cache[header];
+    } else {
+      final grid = new GridComponent._internal(header);
+      _cache[header] = grid;
+      return grid;
+    }
   }
+
+  GridComponent._internal(this.header);
+  //
+  // GridComponent(this.header) {
+  //   print("GridComponent generated.");
+  //   generateList(Init.rPentomino);
+  // }
 
   Future<Null> generateListDefault() async {
     generateList(Init.glider);

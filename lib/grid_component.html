@@ -16,14 +16,16 @@
     <br>
     <!-- <forms-menu></forms-menu> -->
     <br>
-    <div class="grid">
-        <div *ngFor="let column of columnsList" class="col-">
-            <div *ngFor="let cell of column" class="cell"
-                id="{{cell.id}}"
-                [ngClass]="{alive: cell.alive}"
-                [ngStyle]="{'width': header.cellDimensionPx,
-                'height': header.cellDimensionPx}"
-                (click)="cell.alive = toggleState(cell.alive, cell.id)">
+    <div class="main">
+        <div class="grid">
+            <div *ngFor="let column of columnsList" class="col-">
+                <div *ngFor="let cell of column" class="cell"
+                    id="{{cell.id}}"
+                    [ngClass]="{alive: cell.alive}"
+                    [ngStyle]="{'width': header.cellDimensionPx,
+                    'height': header.cellDimensionPx}"
+                    (click)="cell.alive = toggleState(cell.alive, cell.id)">
+                </div>
             </div>
         </div>
     </div>

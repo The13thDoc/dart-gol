@@ -9,7 +9,7 @@ import 'package:dart_gol/grid_component.dart';
   templateUrl: 'header_component.html',
   styleUrls: const ['header_component.css', 'style.css'],
   directives: const [NgModel, GridComponent],
-  providers: const [],
+  // providers: const [GridComponent],
 )
 class HeaderComponent {
   String gridDimension = "30";
@@ -25,13 +25,14 @@ class HeaderComponent {
 
   HeaderComponent() {
     print("HeaderComponent generated.");
-    // grid = new GridComponent(this);
+    grid = new GridComponent(this);
     updateCellSize();
     getDefaultRule();
+    grid.generateListDefault();
   }
 
   updateGridSize() {
-    print("Grid state: $gridState");
+    // print("Grid state: $gridState");
     grid.generateList(gridState);
   }
 

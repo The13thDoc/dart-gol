@@ -1,0 +1,10 @@
+<!-- <div class="menu-icon" (click)="isVisible = !isVisible"></div> -->
+<div class="ico" (click)="isVisible = !isVisible"><a href="#"></a></div>
+
+<div *ngIf="isVisible" class="menu">
+<!-- <div [style.display]="isVisible ? 'inline' : 'none'" > -->
+    <div *ngFor="let form of forms" class="item"
+    (click)="click(form)">
+        {{form}}
+    </div>
+</div>

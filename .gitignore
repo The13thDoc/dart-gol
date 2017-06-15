@@ -3,3 +3,4 @@
 .packages
 bin/
 pubspec.lock
+.sass-cache/

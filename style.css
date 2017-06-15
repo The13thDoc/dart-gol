@@ -1,6 +1,7 @@
 body {
-  background: teal;
-  z-index: 1; }
+    background-color: teal;
+    z-index: 1;
+}
 
 footer {
   /*position: absolute; */
